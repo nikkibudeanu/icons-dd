@@ -1,0 +1,48 @@
+{
+    "blueprints": [
+        {
+            "invoke": "package_swift.pr",
+            "write_to": "Package.swift",
+            "comment": "Create a Package.swift file to define icon targets and products."  
+        },
+        {
+            "invoke": "icon_token.pr",
+            "write_to": "Sources/PrismIcons/Core/IconToken.swift",
+            "comment": "Creates the definitions for all defined icons."
+        },
+        {
+            "invoke": "icon_source.pr",
+            "write_to": "Sources/PrismIcons/Core/PrismIconSource.swift",
+            "comment": "Creates the singleton class to provide icon themes."
+        },
+        {
+            "invoke": "icon_provider.pr",
+            "write_to": "Sources/PrismIcons/Core/PrismIconProvider.swift",
+            "comment": "Creates the interface for a theme to provier icons."
+        },
+        {
+            "invoke": "theme_providers.pr",
+            "write_to": "",
+            "emit_only": true,
+            "comment": "Create the theme providers for each theme."
+        },
+        {
+            "invoke": "theme_activators.pr",
+            "write_to": "",
+            "emit_only": true,
+            "comment": "Create the theme activators for each theme."
+        },
+        {
+            "invoke": "contents_json.pr",
+            "write_to": "",
+            "emit_only": true,
+            "comment": "Create the Contents.json file for each icon."
+        }],
+        "assets": [{
+            "write_using": "asset_path.pr",
+            "scale": "1x",
+            "format": "svg",
+            "type": "image"
+        }
+    ]
+}

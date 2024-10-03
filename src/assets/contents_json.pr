@@ -1,0 +1,53 @@
+{[ let brand = ds.currentBrand() /]}
+{[ let assetGroups = ds.allAssetGroups(brand.id) /]}
+{[ let resolvedAssetGroups = [] /]}
+{[ for group in assetGroups ]}
+    {[ if (group.name.contains("Icons")) ]}
+        {[ for subgroup in group.subgroups ]}
+            {[ let resolvedAssets = [] /]}
+            {[ for assetId in subgroup.assetIds ]}
+                {[ let asset = ds.assetById(assetId) /]}
+                {[ resolvedAssets = resolvedAssets.append(asset) /]}
+            {[/]}
+            {[ if (resolvedAssets.count() > 0) ]}
+                {[ resolvedAssetGroups = resolvedAssetGroups.append({ "groupName": group.name, "icons": resolvedAssets }) /]}
+            {[/]}
+        {[/]}
+    {[/]}
+{[/]}
+{[ let imageContentJSONs = getContentJSONDataForImages(resolvedAssetGroups) /]}
+{[ for element in imageContentJSONs ]}
+    {[ emit file element.path ]}
+{
+  "images" : [
+    {
+      "filename" : "{{ element.name }}",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  },
+  "properties" : {
+    "preserves-vector-representation" : true
+  }
+}
+    {[/]}
+{[/]}
+
+{[ let folderContentJSONs = getContentJSONForSizeFolders(resolvedAssetGroups) /]}
+{[ for path in folderContentJSONs ]}
+    {[ emit file path ]}
+{
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  },
+  "properties" : {
+    "provides-namespace" : true
+  },
+  "value" : ""
+}
+    {[/]}
+{[/]}

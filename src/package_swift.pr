@@ -1,0 +1,45 @@
+// swift-tools-version:5.5
+// The swift-tools-version declares the minimum version of Swift required to build this package.
+
+import PackageDescription
+
+{[ let brand = ds.currentBrand() /]}
+{[ let assetGroups = ds.allAssetGroups(brand.id) /]}
+{[ let resolvedAssetGroups = [] /]}
+{[ for group in assetGroups ]}
+    {[ if (group.name.contains("Icons")) ]}
+        {[ for subgroup in group.subgroups ]}
+            {[ let resolvedAssets = [] /]}
+            {[ for assetId in subgroup.assetIds ]}
+                {[ let asset = ds.assetById(assetId) /]}
+                {[ resolvedAssets = resolvedAssets.append(asset) /]}
+            {[/]}
+            {[ if (resolvedAssets.count() > 0) ]}
+                {[ resolvedAssetGroups = resolvedAssetGroups.append({ "groupName": group.name, "icons": resolvedAssets }) /]}
+            {[/]}
+        {[/]}
+    {[/]}
+{[/]}
+{[ let themes = getNonDefaultIconThemes(resolvedAssetGroups) /]}
+
+let package = Package(
+    name: "PrismIcons",
+    platforms: [.iOS(.v14)],
+    products: [
+        .library(name: "PrismIcons", targets: ["PrismIcons"]),
+        {[ for theme in themes ]}
+        .library(name: "PrismIcons{{ theme }}", targets: ["PrismIcons{{ theme }}"]),
+        {[/]}
+    ],
+    dependencies: [],
+    targets: [
+        .target(
+            name: "PrismIcons"),
+        {[ for theme in themes ]}
+        .target(
+            name: "PrismIcons{{ theme }}",
+            dependencies: ["PrismIcons"]
+        ),
+        {[/]}
+    ]
+)

@@ -1,0 +1,6 @@
+{[ let name = (asset.originalName + "." + asset.format) /]}
+
+{* Generate full path from segments *}
+{[ let path = (asset.group.path.append(asset.group.name).append(name).join("/")) /]}
+{[ let newAsset = getAssetOutput(path)  /]}
+{{ newAsset }}

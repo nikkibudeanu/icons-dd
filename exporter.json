@@ -1,0 +1,22 @@
+{
+    "id": "doordash.prism.ios-icons",
+    "name": "Prism iOS Icons",
+    "description": "Prism iOS Icon Exporter",
+    "source_dir": "src",
+    "version": "1.0",
+    "tags": ["Prism", "Prism iOS", "DoorDash", "Assets", "SVG", "Icons", "iOS"],
+    "author": "Design Infrastructure",
+    "organization": "DoorDash",
+    "homepage": "https://prism.doordash.com",
+    "usesBrands": true,
+    "usesThemes": true,
+    "config": {
+        "sources": "sources.json",
+        "output": "output.json",
+        "js": "src/js/helpers.js"
+    },
+    "engines": {
+        "pulsar": "1.0.0",
+        "supernova": "1.0.0"
+    }
+}
